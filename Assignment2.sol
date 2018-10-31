@@ -5,19 +5,19 @@ contract Quiz{
     uint numberOfUsers = 0;
     uint pfee;
     uint tfee = 0;
-    bytes q1;
-    bytes q2;
-    bytes q3;
-    bytes q4;
-    bytes a1;
-    bytes a2;
-    bytes a3;
-    bytes a4;
+    string q1;
+    string q2;
+    string q3;
+    string q4;
+    string a1;
+    string a2;
+    string a3;
+    string a4;
     mapping(address => bool) userRegistered;
     mapping(uint => address ) userWon; // The address of the user who first answered the question will be stored here.
     address[] public userAddresses;
     
-    constructor(uint _fee, uint _duration,bytes _a,bytes _e,bytes _b,bytes _f,bytes _c,bytes _g,bytes _d,bytes _h){
+    constructor(uint _fee, uint _duration,string _a,string _e,string _b,string _f,string _c,string _g,string _d,string _h){
     timelimit = now + _duration * 1 minutes;
     pfee = _fee;
     QuizOwner=msg.sender;
@@ -41,7 +41,7 @@ contract Quiz{
     }
     
     //time limit - Questions
-    function askquestions() public returns(bytes,bytes,bytes,bytes) {
+    function askquestions() public returns(string,string,string,string) {
         address _userAddress=msg.sender;
         require(userRegistered[_userAddress]==true && now>timelimit);
         return (q1,q2,q3,q4);
