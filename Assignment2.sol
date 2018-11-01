@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.4.24;
 contract Quiz{
     address QuizOwner;
     uint timelimit;
@@ -6,6 +6,7 @@ contract Quiz{
     uint pfee;
     uint index = 0;
     uint tfee = 0;
+    uint perf = 0;
     string q1;
     string q2;
     string q3;
@@ -14,6 +15,7 @@ contract Quiz{
     string a2;
     string a3;
     string a4;
+    string str;
     mapping(address => bool) userRegistered;
     mapping(address => string) answeredcorrectlyq1;
     mapping(address => string) answeredcorrectlyq2;
@@ -143,9 +145,7 @@ contract Quiz{
     }
     
     function decideWinnerandPayRest()
-    {
-        uint perf = 0;
-        
+    {   
         require(msg.sender == QuizOwner);
         
         for(uint i = 0; i < userAddresses.length; i++)   //To pay the pending returns for every participant
@@ -205,5 +205,61 @@ contract Quiz{
         address _userAddress = msg.sender;
         
         return pendingReturns[_userAddress];
+    }
+    
+    function get_player()
+    public view returns(uint a){
+        return numberOfUsers;
+    }
+
+    function get_question()
+    public view returns(string a, string b, string c, string d){
+        return (a,b,c,d);
+    }
+
+    function get_lower()
+    public view returns(string a){
+        str = _toLower("SaHiL");
+        return (str);
+    }
+
+    function get_answer()
+    public view returns(uint a){
+        submitAnswer("Max", "22", "Male", "No");
+        return usercount[0];
+    }
+    function get_answer1()
+    public view returns(uint a){
+        submitAnswer("Max", "22", "Male", "No");
+        return usercount[1];
+    }
+    function get_answer2()
+    public view returns(uint a){
+        submitAnswer("Max", "22", "Male", "No");
+        return usercount[2];
+    }
+    function get_answer3()
+    public view returns(uint a){
+        submitAnswer("Max", "22", "Male", "No");
+        return usercount[3];
+    }
+
+    function get_winner()
+    public view returns(uint a){
+        submitAnswer("Max", "22", "Male", "No");
+        decideWinnerandPayRest();
+        return perf;
+    }
+    function get_winner1()
+    public view returns(uint a){
+        submitAnswer("Max", "22", "Male", "No");
+        decideWinnerandPayRest();
+        return index;
+    }
+
+    function get_withdraw()
+    public view returns(uint a){
+        withdraw();
+        return pendingReturns[msg.sender];
     }
 }
